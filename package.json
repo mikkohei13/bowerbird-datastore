@@ -1,0 +1,17 @@
+{
+  "name": "bowerbird-datastore",
+  "version": "0.0.1",
+  "description": "Simple API-based datastore",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "keywords": [
+    "simple",
+    "datastore",
+    "mongodb"
+  ],
+  "author": "Mikko Heikkinen/biomi.org",
+  "license": "MIT"
+}
