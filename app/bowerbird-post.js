@@ -3,8 +3,12 @@ const MongoClient = require('mongodb').MongoClient;
 
 let parameters = {};
 
-function post(givenParameters) {
-    parameters = givenParameters;
+function post(argumentsObj) {
+    parameters = argumentsObj.parameters;
+    payload = argumentsObj.payload;
+
+    console.log("Payload: " + JSON.stringify(payload));
+
     let status;
 
     MongoClient.connect(process.env.MLAB_CONNECTION, function(err, db) {

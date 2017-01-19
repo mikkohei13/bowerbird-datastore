@@ -27,19 +27,28 @@ function requestHandler(request, response) {
 	if (process.env.APIKEY != givenAPIkey) {
 	    send404();
 	}
+	else
+    {
+        // Router - decides what to do based on URL
+        if ("/post" == parameters.pathname && "POST" == parameters.request.method) {
+            // Handle incoming data stream
+            let body = "";
+            parameters.request.on("data", function(chunk) {
+                body += chunk;
+            });
+            parameters.request.on("end", function() {
+                bowerbirdPost.post({"payload" : body, "parameters" : parameters});
+            });
+        }
 
-	// Router - decides what to do based on URL
-	if ("/post" == parameters.pathname) {
-        let status = bowerbirdPost.post(parameters);
-	}
+        else if ("/get" == parameters.pathname && "GET" == parameters.request.method) {
+            bowerbirdPost.get({"parameters" : parameters});
+        }
 
-	else if ("/get" == parameters.pathname) {
-        let status = bowerbirdPost.get(parameters);
-	}
-
-	else {
-	    send404();
-	}
+        else {
+            send404();
+        }
+    }
 }
 
 function send404() {
