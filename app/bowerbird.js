@@ -1,9 +1,9 @@
 
 const url = require("url");
 const querystring = require("querystring");
-const fs = require("fs");
 
-//const get = require("./get");
+const bowerbirdGet = require("./bowerbird-get");
+const bowerbirdPost = require("./bowerbird-post");
 
 let parameters = {};
 
@@ -23,29 +23,24 @@ function requestHandler(request, response) {
 
 	let givenAPIkey = parameters.queryParts.apikey;
 
+	// Check apikey
 	if (process.env.APIKEY != givenAPIkey) {
-		send404();
+	    send404();
 	}
 
 	// Router - decides what to do based on URL
 	if ("/post" == parameters.pathname) {
+        let status = bowerbirdPost.post();
+        parameters.response.end(status);
+	}
 
-		/*
-		get.https(
-			"host",
-			("path" + ),
-			callback
-		);
-
-		function callback(err, results) {
-			getVihkolatest(results);
-		});
-		*/
-		parameters.response.end("OK!");
+	else if ("/get" == parameters.pathname) {
+        let status = bowerbirdPost.post();
+        parameters.response.end(status);
 	}
 
 	else {
-		send404();
+	    send404();
 	}
 }
 
