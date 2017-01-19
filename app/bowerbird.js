@@ -30,13 +30,11 @@ function requestHandler(request, response) {
 
 	// Router - decides what to do based on URL
 	if ("/post" == parameters.pathname) {
-        let status = bowerbirdPost.post();
-        parameters.response.end(status);
+        let status = bowerbirdPost.post(parameters);
 	}
 
 	else if ("/get" == parameters.pathname) {
-        let status = bowerbirdPost.post();
-        parameters.response.end(status);
+        let status = bowerbirdPost.get(parameters);
 	}
 
 	else {
