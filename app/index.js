@@ -1,7 +1,7 @@
 
 let port = 3000;
 
-const lajiAPI = require('./bowerbird.js');
+const bowerbird = require('./bowerbird.js');
 const http = require('http');
 
 if (process.env.PORT) {
@@ -23,5 +23,5 @@ function startServer(err) {
 }
 
 function requestHandler(request, response) {
-    bowerbird.handleQuery(request, response);
+    bowerbird.requestHandler(request, response);
 }
