@@ -12,6 +12,7 @@ let parameters = {};
 
 // Decides what to do with the query
 function requestHandler(request, response) {
+	parameters.logError = logError;
 	parameters.request = request;
 	parameters.response = response;
 
@@ -56,6 +57,12 @@ function send404() {
 	parameters.response.writeHead(404);
 	parameters.response.end("Page not found (404)");
 }
+
+const logError = function logError(e, statusCode, errorMessage) {
+    console.log("ERROR: " + e);
+    parameters.response.writeHead(statusCode);
+    parameters.response.end("Error (" + statusCode + "):" + errorMessage);
+};
 
 module.exports = {
 	"requestHandler" : requestHandler
