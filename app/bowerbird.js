@@ -54,7 +54,7 @@ function requestHandler(request, response) {
 function send404() {
 	console.log(parameters.request.url + " not found");
 	parameters.response.writeHead(404);
-	parameters.response.end("Page not found 404");	
+	parameters.response.end("Page not found (404)");
 }
 
 module.exports = {
