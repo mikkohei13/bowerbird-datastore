@@ -52,15 +52,31 @@ function get(argumentsObj) {
                 }
                 else
                 {
-                    console.log("Found the following records");
-                    console.log(documents);
-                    parameters.response.end(JSON.stringify(documents));
+                    console.log("Documents:\n" + documents);
+                    if ("csv" == parameters.queryParts.format) {
+                        responseCSV(documents);
+                    }
+                    else {
+                        responseJSON(documents); // default
+                    }
                 }
                 db.close();
             });
         }
     });
 }
+
+const responseJSON = function responseJSON(documents) {
+    parameters.response.end(JSON.stringify(documents));
+};
+
+const responseCSV = function responseJSON(documents) {
+    let CSV = "";
+    documents.map(function toCSV(documentObj) {
+        CSV += documentObj.lat + "\t" + documentObj.lon + "\t" + documentObj.tst + "\n";
+    });
+    parameters.response.end(CSV);
+};
 
 module.exports = {
     "get" : get
