@@ -1,6 +1,4 @@
 const MongoClient = require('mongodb').MongoClient;
-//const assert = require('assert');
-
 let parameters = {};
 
 function post(argumentsObj) {
@@ -18,7 +16,6 @@ function post(argumentsObj) {
     }
 
     // Todo: Validate payload?, max size
-    // Todo Handle errors
 
     MongoClient.connect(process.env.MLAB_CONNECTION, function(err, db) {
         if (err) {
@@ -36,9 +33,9 @@ function post(argumentsObj) {
                     parameters.logStatus("", 200, "OK");
 //                    console.log(result);
                 }
+                db.close();
             });
         }
-        db.close();
     });
 }
 

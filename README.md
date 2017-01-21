@@ -33,5 +33,8 @@ TODO
 
 - Mongo indexing parameters?
 - GET
+- Async POST?
+- Add bowerbird_time (unix time)
+- Data security / input validation? (not needed because of trusted apikey users only?)
 
 

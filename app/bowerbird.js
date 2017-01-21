@@ -23,8 +23,9 @@ function requestHandler(request, response) {
 //	console.log(parameters);
 
 	let givenAPIkey = parameters.queryParts.apikey;
+    delete parameters.queryParts.apikey;
 
-	// Check apikey
+    // Check apikey
 	if (process.env.APIKEY != givenAPIkey) {
         parameters.logStatus("", 401, "Unauthorized.");
 	}
@@ -43,8 +44,7 @@ function requestHandler(request, response) {
         }
 
         else if ("/get" == parameters.pathname && "GET" == parameters.request.method) {
-            // TODO: implementation
-            bowerbirdPost.get({"parameters" : parameters});
+            bowerbirdGet.get({"parameters" : parameters});
         }
 
         else {
