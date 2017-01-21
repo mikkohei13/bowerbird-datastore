@@ -30,8 +30,10 @@ function post(argumentsObj) {
                 }
                 else
                 {
-                    parameters.logStatus("", 200, "OK");
-//                    console.log(result);
+                    // Respond with empty JSON
+                    console.log("200 OK");
+                    parameters.response.writeHead(200);
+                    parameters.response.end(JSON.stringify([]));
                 }
                 db.close();
             });
