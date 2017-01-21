@@ -13,25 +13,34 @@ function get(argumentsObj) {
         }
         else {
             // Todo: expand, functionalize
+
+            // query
             let query = {"bowerbird_set": parameters.queryParts.bowerbird_set};
 
-            let limit = parseInt(parameters.queryParts.limit, 10);
-            if (! Number.isInteger(limit)) {
-                console.log("limit: " + limit);
-                limit = 1; // default
+            // limit
+            let limit = 1; // default
+            if (parameters.queryParts.limit) {
+                let limitGot = parseInt(parameters.queryParts.limit, 10);
+                if (Number.isInteger(limitGot)) {
+                    limit = limitGot;
+                }
             }
 
-            let sortString = parameters.queryParts.sort;
-            let sortParts = sortString.split(":");
-            let sortOrder;
-
-            if ("DESC" == sortParts[1]) {
-                sortOrder = -1;
+            // sort
+            let sort = {}; // default: no sorting
+            // Todo: validate sort argument format
+            if (parameters.queryParts.sort) {
+                let sortGot = parameters.queryParts.sort;
+                let sortParts = sortGot.split(":");
+                let sortOrder;
+                if ("DESC" == sortParts[1]) {
+                    sortOrder = -1;
+                }
+                else {
+                    sortOrder = 1; // default
+                }
+                sort = { [sortParts[0]] : sortOrder };
             }
-            else {
-                sortOrder = 1; // default
-            }
-            let sort = { [sortParts[0]] : sortOrder };
 
 //            find( { qty: { $gt: 25 } } )
 
