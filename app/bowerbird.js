@@ -12,7 +12,7 @@ let parameters = {};
 
 // Decides what to do with the query
 function requestHandler(request, response) {
-	parameters.logError = logError;
+	parameters.logStatus = logStatus;
 	parameters.request = request;
 	parameters.response = response;
 
@@ -26,7 +26,7 @@ function requestHandler(request, response) {
 
 	// Check apikey
 	if (process.env.APIKEY != givenAPIkey) {
-	    send404();
+        parameters.logStatus(e, 401, "Unauthorized.");
 	}
 	else
     {
@@ -47,21 +47,15 @@ function requestHandler(request, response) {
         }
 
         else {
-            send404();
+            parameters.logStatus(e, 404, "Endpoint not found.");
         }
     }
 }
 
-function send404() {
-	console.log(parameters.request.url + " not found");
-	parameters.response.writeHead(404);
-	parameters.response.end("Page not found (404)");
-}
-
-const logError = function logError(e, statusCode, errorMessage) {
-    console.log("ERROR: " + e);
+const logStatus = function logStatus(e, statusCode, errorMessage) {
+    console.log(errorMessage + " (" + statusCode + "): " + e);
     parameters.response.writeHead(statusCode);
-    parameters.response.end("Error (" + statusCode + "):" + errorMessage);
+    parameters.response.end(errorMessage + " (" + statusCode + ")");
 };
 
 module.exports = {

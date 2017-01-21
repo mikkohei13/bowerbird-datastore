@@ -13,7 +13,7 @@ function post(argumentsObj) {
     try {
         data = JSON.parse(payload);
     } catch (e) {
-        parameters.logError(e, 400, "Invalid JSON body.");
+        parameters.logStatus(e, 400, "Invalid JSON body.");
         return false;
     }
 
@@ -22,19 +22,19 @@ function post(argumentsObj) {
 
     MongoClient.connect(process.env.MLAB_CONNECTION, function(err, db) {
         if (err) {
-            parameters.logError(e, 503, "Database connection failed.");
+            parameters.logStatus(e, 503, "Database connection failed.");
         }
         else {
             let options = {};
             let collection = db.collection(process.env.MLAB_COLL);
             collection.insertOne(data, options, function(err, result) {
                 if(err) {
-                    parameters.logError(e, 500, "Database insertion failed.");
+                    parameters.logStatus(e, 500, "Database insertion failed.");
                 }
             });
         }
         db.close();
-        parameters.logError(null, 200, "OK");
+        parameters.logStatus(null, 200, "OK");
     });
 }
 
