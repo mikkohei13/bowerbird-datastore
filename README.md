@@ -31,4 +31,7 @@ Test sending JSON data with POST using Curl:
 TODO
 ====
 
+- Mongo indexing parameters?
+- GET
+
 

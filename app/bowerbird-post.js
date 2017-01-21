@@ -5,13 +5,13 @@ let parameters = {};
 
 function post(argumentsObj) {
     parameters = argumentsObj.parameters;
-    payload = argumentsObj.payload;
-    let data;
-
-    console.log("Payload: " + payload);
+    const payload = argumentsObj.payload;
+    let payloadObj;
+    console.log("Payload before metadata: " + payload);
 
     try {
-        data = JSON.parse(payload);
+        payloadObj = JSON.parse(payload);
+        payloadObj = appendMetadata(payloadObj);
     } catch (e) {
         parameters.logStatus(e, 400, "Invalid JSON body.");
         return false;
@@ -27,15 +27,32 @@ function post(argumentsObj) {
         else {
             let options = {};
             let collection = db.collection(process.env.MLAB_COLL);
-            collection.insertOne(data, options, function(err, result) {
+            collection.insertOne(payloadObj, options, function(err, result) {
                 if(err) {
                     parameters.logStatus(e, 500, "Database insertion failed.");
+                }
+                else
+                {
+                    parameters.logStatus(null, 200, "OK");
+//                    console.log(result);
                 }
             });
         }
         db.close();
-        parameters.logStatus(null, 200, "OK");
     });
+}
+
+function appendMetadata(payload) {
+    console.log(parameters.queryParts);
+
+    if (parameters.queryParts.bowerbird_set) {
+        payload.bowerbird_set = parameters.queryParts.bowerbird_set;
+    }
+    if (parameters.queryParts.bowerbird_id) {
+        payload.bowerbird_id = parameters.queryParts.bowerbird_id;
+    }
+
+    return payload;
 }
 
 module.exports = {

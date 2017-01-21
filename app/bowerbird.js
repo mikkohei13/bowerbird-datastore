@@ -43,6 +43,7 @@ function requestHandler(request, response) {
         }
 
         else if ("/get" == parameters.pathname && "GET" == parameters.request.method) {
+            // TODO: implementation
             bowerbirdPost.get({"parameters" : parameters});
         }
 
