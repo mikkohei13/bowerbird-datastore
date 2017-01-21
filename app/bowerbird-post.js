@@ -22,18 +22,18 @@ function post(argumentsObj) {
 
     MongoClient.connect(process.env.MLAB_CONNECTION, function(err, db) {
         if (err) {
-            parameters.logStatus(e, 503, "Database connection failed.");
+            parameters.logStatus(err, 503, "Database connection failed.");
         }
         else {
             let options = {};
             let collection = db.collection(process.env.MLAB_COLL);
             collection.insertOne(payloadObj, options, function(err, result) {
                 if(err) {
-                    parameters.logStatus(e, 500, "Database insertion failed.");
+                    parameters.logStatus(err, 500, "Database insertion failed.");
                 }
                 else
                 {
-                    parameters.logStatus(null, 200, "OK");
+                    parameters.logStatus("", 200, "OK");
 //                    console.log(result);
                 }
             });

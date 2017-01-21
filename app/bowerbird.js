@@ -26,7 +26,7 @@ function requestHandler(request, response) {
 
 	// Check apikey
 	if (process.env.APIKEY != givenAPIkey) {
-        parameters.logStatus(e, 401, "Unauthorized.");
+        parameters.logStatus("", 401, "Unauthorized.");
 	}
 	else
     {
@@ -48,7 +48,7 @@ function requestHandler(request, response) {
         }
 
         else {
-            parameters.logStatus(e, 404, "Endpoint not found.");
+            parameters.logStatus("", 404, "Endpoint not found.");
         }
     }
 }
