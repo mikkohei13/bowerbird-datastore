@@ -70,10 +70,13 @@ const responseJSON = function responseJSON(documents) {
     parameters.response.end(JSON.stringify(documents));
 };
 
+// Simple CSV format for Owntracks data format
 const responseCSV = function responseJSON(documents) {
     let CSV = "";
     documents.map(function toCSV(documentObj) {
-        CSV += documentObj.lat + "\t" + documentObj.lon + "\t" + documentObj.tst + "\n";
+        let date = new Date((documentObj.tst * 1000)); // temp, should return only unix time
+        let dateString = date.getDate() + "." + (date.getMonth() + 1) + "." + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes();
+        CSV += documentObj.lat + "\t" + documentObj.lon + "\t" + documentObj.tst + "\t" + dateString + "\n";
     });
     parameters.response.end(CSV);
 };
