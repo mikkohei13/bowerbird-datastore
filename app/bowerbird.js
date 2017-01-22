@@ -31,6 +31,8 @@ function requestHandler(request, response) {
 	}
 	else
     {
+        parameters.response.header("Access-Control-Allow-Origin", "*");
+
         // Router - decides what to do based on URL
         if ("/post" == parameters.pathname && "POST" == parameters.request.method) {
             // Handle incoming data stream
