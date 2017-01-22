@@ -20,8 +20,6 @@ function requestHandler(request, response) {
 	parameters.queryParts = querystring.parse(parameters.urlParts.query);
 	parameters.pathname = parameters.urlParts.pathname;
 
-//	console.log(parameters);
-
 	let givenAPIkey = parameters.queryParts.apikey;
     delete parameters.queryParts.apikey;
 
@@ -32,7 +30,6 @@ function requestHandler(request, response) {
 	else
     {
         parameters.response.setHeader("Access-Control-Allow-Origin", "*");
-//        parameters.response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 
         // Router - decides what to do based on URL
         if ("/post" == parameters.pathname && "POST" == parameters.request.method) {
