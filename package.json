@@ -15,6 +15,6 @@
   "author": "Mikko Heikkinen/biomi.org",
   "license": "MIT",
   "dependencies": {
-    "mongodb": "^2.2.21"
+    "mongodb": "^3.6.2"
   }
 }
